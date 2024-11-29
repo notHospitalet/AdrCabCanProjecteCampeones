@@ -10,7 +10,7 @@ public class Campeon {
     String linia;
     String region;
 
-
+    // inicializa un objeto Campeon a partir de un objeto CampeonResponse (proviene de la API)
     public Campeon(CampeonResponse campeonesResponse){
         this.id = campeonesResponse.getId();
         this.nombre = campeonesResponse.getNombre();
@@ -19,6 +19,7 @@ public class Campeon {
         this.region = campeonesResponse.getRegion();
     }
 
+    // inicializa un objeto Campeon a partir de un objeto CampeonEntity (proviene de la BD)
     public Campeon(CampeonEntity campeonEntity) {
         this.id = campeonEntity.getId();
         this.nombre = campeonEntity.getNombre();

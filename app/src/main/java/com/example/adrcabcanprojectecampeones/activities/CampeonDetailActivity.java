@@ -20,17 +20,24 @@ public class CampeonDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_campeon_detail);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
+        // -
+
+
+        // obtiene la referencia de los elementos del layout detail
         ImageView campeonImagen = findViewById(R.id.imageViewCampeonDetail);
         TextView campeonNombre = findViewById(R.id.textViewNombreDetail);
         TextView campeonLinia = findViewById(R.id.textViewLiniaDetail);
         TextView campeonRegion = findViewById(R.id.textViewRegionDetail);
 
+
+        // con el intent recupera los datos de la actividad anterior (CampeonesList)
         String imageUrl = getIntent().getStringExtra("imagen");
         String nombre = getIntent().getStringExtra("nombre");
         String linia = getIntent().getStringExtra("linia");

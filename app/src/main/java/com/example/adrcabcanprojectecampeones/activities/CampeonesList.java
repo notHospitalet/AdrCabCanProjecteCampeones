@@ -2,7 +2,6 @@ package com.example.adrcabcanprojectecampeones.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
@@ -14,25 +13,18 @@ import com.example.adrcabcanprojectecampeones.R;
 import com.example.adrcabcanprojectecampeones.adapters.CampeonAdapter;
 import com.example.adrcabcanprojectecampeones.data.CampeonEntity;
 import com.example.adrcabcanprojectecampeones.data.CampeonesViewModel;
-import com.example.adrcabcanprojectecampeones.data.RetrofitClient;
 import com.example.adrcabcanprojectecampeones.models.Campeon;
-import com.example.adrcabcanprojectecampeones.data.CampeonApiService;
-import com.example.adrcabcanprojectecampeones.data.CampeonResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CampeonesList extends AppCompatActivity {
 
     private final String TAG = "CampeonesList";
 
-    private List<Campeon> campeonList = new ArrayList<>();
-    private CampeonAdapter adapter;
-    private CampeonesViewModel campeonesViewModel;
+    private List<Campeon> campeonList = new ArrayList<>(); // almacenar campeones
+    private CampeonAdapter adapter; // conectar la lista de campeones con la vista
+    private CampeonesViewModel campeonesViewModel; // manejar logica y datos de los campeones
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +33,33 @@ public class CampeonesList extends AppCompatActivity {
         setContentView(R.layout.activity_campeones_list);
 
         adapter = new CampeonAdapter(this, campeonList);
+
+        // obtiene el listView y lo asocia al adapter
         ListView listView = findViewById(R.id.listView_campeones);
         listView.setAdapter(adapter);
 
         mostrarDetalle(listView);
-        //obtenerCampeones();
 
+        // inicializa el viewModel y observa los cambios
         campeonesViewModel = new ViewModelProvider(this).get(CampeonesViewModel.class);
         campeonesViewModel.getCampeones().observe(this, campeonEntities -> {
-            campeonList.clear();
+            campeonList.clear(); // limpia la lista de campeones
+
+            // convierte cada entidad campeon en un objeto y lo añade a la lista
             for (CampeonEntity campeonEntity : campeonEntities) {
                 campeonList.add(new Campeon(campeonEntity));
             }
             adapter.notifyDataSetChanged();
         });
+
     }
 
+    // metodo para manejar los clics en el listView y mostrar detalles del campeon
     private void mostrarDetalle(ListView listView) {
         listView.setOnItemClickListener((parent, view, position, id) -> {
-            Campeon campeonSeleccionado = campeonList.get(position);
+            Campeon campeonSeleccionado = campeonList.get(position); // obtiene el campeon seleccionado
 
+            // con un intent inicia la actividad de la vista detalle y despues pasa los datos
             Intent intent = new Intent(CampeonesList.this, CampeonDetailActivity.class);
             intent.putExtra("nombre", campeonSeleccionado.getNombre());
             intent.putExtra("linia", campeonSeleccionado.getLinia());
@@ -70,38 +69,10 @@ public class CampeonesList extends AppCompatActivity {
         });
     }
 
+    // boton refresh, limpia la lista y la vuelve a crear (refrescando el listView)
     public void refresh(View view) {
 
         campeonList.clear();
         campeonesViewModel.RefreshDataTask();
     }
-
-    /*private void obtenerCampeones() {
-
-        CampeonApiService apiService = RetrofitClient.getRetrofitInstance().create(CampeonApiService.class);
-
-        Call <List<CampeonResponse>> call = apiService.getCampeones("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhZHZmaXZiYWFsbmZ0bHd5ZmNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwMDg5NDQsImV4cCI6MjA0NzU4NDk0NH0.iVYk162dwEGlR7aSYKkXF6NBfV2ciLqR_F4UU56j_nw");
-
-        call.enqueue(new Callback<List<CampeonResponse>>() {
-            @Override
-            public void onResponse(Call<List<CampeonResponse>> call, Response<List<CampeonResponse>>response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<CampeonResponse> campeonesResponse = response.body();
-                    for (CampeonResponse campeonResponse: campeonesResponse) {
-                        Campeon campeon = new Campeon(campeonResponse);
-                        campeonList.add(campeon);
-                    }
-                   // Campeon campeon = new Campeon(campeonesResponse);
-
-                    adapter.notifyDataSetChanged();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<CampeonResponse>> call, Throwable t) {
-                Log.e(TAG, "ERROR: Llamada de API" + t.getMessage());
-            }
-        });
-
-    } */
 }

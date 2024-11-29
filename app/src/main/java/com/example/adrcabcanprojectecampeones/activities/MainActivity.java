@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void siguientePagina(View element) {
-
+        // intent para iniciar la actividad campeonesList
         Intent intent = new Intent(MainActivity.this, CampeonesList.class);
         startActivity(intent);
 

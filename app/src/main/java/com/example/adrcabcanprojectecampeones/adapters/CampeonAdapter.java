@@ -14,10 +14,11 @@ import com.example.adrcabcanprojectecampeones.models.Campeon;
 
 import java.util.List;
 
+// extiende de BaseAdapter para mostrar la lista de campeones
 public class CampeonAdapter extends BaseAdapter {
 
     private final Context context;
-    private final List<Campeon> campeonList;
+    private final List<Campeon> campeonList; // lista campeones que mostrara en la interfaz
 
     public CampeonAdapter(Context context, List<Campeon> campeonList) {
         this.context = context;
@@ -39,9 +40,11 @@ public class CampeonAdapter extends BaseAdapter {
         return position;
     }
 
+    // metodo para generar o reutilizar una vista para cada elemento de la lista
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
 
+        // si no existe la crea, si existe la usa (infla el diseño desde el XML)
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.campeon_row, viewGroup, false);
         }

@@ -2,6 +2,8 @@ package com.example.adrcabcanprojectecampeones.data;
 
 import com.google.gson.annotations.SerializedName;
 
+// clase que representa la respuesta de un campeon obtenida desde la API
+// mapea las claves del json a los atributos del campeon
 public class CampeonResponse {
 
     @SerializedName("id")
