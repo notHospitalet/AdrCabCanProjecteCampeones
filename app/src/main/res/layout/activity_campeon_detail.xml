@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#C1D9EF"
+    tools:context=".activities.CampeonDetailActivity">
+
+    <ImageView
+        android:id="@+id/imageViewCampeonDetail"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/textViewNombreDetail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/textViewNombreDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Nombre"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewCampeonDetail"
+        app:layout_constraintStart_toStartOf="@+id/imageViewCampeonDetail"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewCampeonDetail" />
+
+    <TextView
+        android:id="@+id/textViewLiniaDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Linia"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewNombreDetail"
+        app:layout_constraintStart_toStartOf="@+id/textViewNombreDetail"
+        app:layout_constraintTop_toBottomOf="@+id/textViewNombreDetail" />
+
+    <TextView
+        android:id="@+id/textViewRegionDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Region"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/textViewLiniaDetail"
+        app:layout_constraintStart_toStartOf="@+id/textViewLiniaDetail"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLiniaDetail" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
