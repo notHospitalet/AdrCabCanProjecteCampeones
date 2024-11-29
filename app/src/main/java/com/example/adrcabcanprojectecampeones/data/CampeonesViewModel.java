@@ -34,18 +34,18 @@ public class CampeonesViewModel extends AndroidViewModel {
     }
 
     public void RefreshDataTask() {
-
+        new Thread(() -> campeonDao.deleteCampeones()).start();
         CampeonApiService apiService = RetrofitClient.getRetrofitInstance().create(CampeonApiService.class);
-        Call <List<CampeonResponse>> call = apiService.getCampeones("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhZHZmaXZiYWFsbmZ0bHd5ZmNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwMDg5NDQsImV4cCI6MjA0NzU4NDk0NH0.iVYk162dwEGlR7aSYKkXF6NBfV2ciLqR_F4UU56j_nw");
+        Call<List<CampeonResponse>> call = apiService.getCampeones("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZhZHZmaXZiYWFsbmZ0bHd5ZmNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzIwMDg5NDQsImV4cCI6MjA0NzU4NDk0NH0.iVYk162dwEGlR7aSYKkXF6NBfV2ciLqR_F4UU56j_nw");
 
         call.enqueue(new Callback<List<CampeonResponse>>() {
             @Override
             public void onResponse(Call<List<CampeonResponse>> call, Response<List<CampeonResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List <CampeonResponse> campeonesResponse = response.body();
+                    List<CampeonResponse> campeonesResponse = response.body();
 
                     ArrayList<CampeonEntity> campeonEntities = new ArrayList<>();
-                    for (CampeonResponse campeonResponse : campeonesResponse ) {
+                    for (CampeonResponse campeonResponse : campeonesResponse) {
                         campeonEntities.add(new CampeonEntity(campeonResponse));
                     }
                     new Thread(() -> campeonDao.addCampeones(campeonEntities)).start();

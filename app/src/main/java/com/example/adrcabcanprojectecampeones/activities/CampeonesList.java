@@ -3,6 +3,7 @@ package com.example.adrcabcanprojectecampeones.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import androidx.activity.EdgeToEdge;
@@ -58,15 +59,21 @@ public class CampeonesList extends AppCompatActivity {
 
     private void mostrarDetalle(ListView listView) {
         listView.setOnItemClickListener((parent, view, position, id) -> {
-          Campeon campeonSeleccionado = campeonList.get(position);
+            Campeon campeonSeleccionado = campeonList.get(position);
 
-          Intent intent = new Intent(CampeonesList.this, CampeonDetailActivity.class);
-          intent.putExtra("nombre", campeonSeleccionado.getNombre());
-          intent.putExtra("linia", campeonSeleccionado.getLinia());
-          intent.putExtra("region", campeonSeleccionado.getRegion());
-          intent.putExtra("imagen", campeonSeleccionado.getImagen());
-          startActivity(intent);
+            Intent intent = new Intent(CampeonesList.this, CampeonDetailActivity.class);
+            intent.putExtra("nombre", campeonSeleccionado.getNombre());
+            intent.putExtra("linia", campeonSeleccionado.getLinia());
+            intent.putExtra("region", campeonSeleccionado.getRegion());
+            intent.putExtra("imagen", campeonSeleccionado.getImagen());
+            startActivity(intent);
         });
+    }
+
+    public void refresh(View view) {
+
+        campeonList.clear();
+        campeonesViewModel.RefreshDataTask();
     }
 
     /*private void obtenerCampeones() {
